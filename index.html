@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI BABYYYY!!😋</title>
+    <style>
+        body {
+            background-color: #ffeef8;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            color: #d63384;
+            overflow-x: hidden;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+            border: 2px solid #ffb6c1;
+            display: inline-block;
+            min-width: 300px;
+        }
+        .btn-container { margin-top: 20px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        
+        #yesBtn {
+            background-color: #ff69b4;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        
+        #noBtn {
+            background-color: #ffb6c1;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="quiz-box">
+        <h1 id="question">Do you love me? 😛💕</h1>
+        
+        <div class="btn-container">
+            <button id="yesBtn" onclick="nextQuestion()">Yes!</button>
+            <button id="noBtn" onclick="noClicked()">No</button>
+        </div>
+
+        <img id="meme-pic" src="" alt="Meme">
+        <p id="meme-text" style="display:none; font-weight:bold;"></p>
+    </div>
+
+    <script>
+        let noCount = 0;
+        let step = 1;
+
+        // Add your GIF/Image links here!
+        const noMemes = [
+            "https://giphy.com/gifs/the-rock-eyebrow-raise-raised-QxcSqRe0nllClKLMDnt&ep=v1_gifs_search&rid=giphy.gif",
+            "https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyZ253MXF0b2Z6b290ODA2bHR2MzUyb2F6NXBiMHI4YmlibGZmcW9ldyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AAsj7jdrHjtp6/giphy.gif_gifs_search&rid=giphy.gif"
+        ];
+        
+        const noTexts = [
+            "wth?",
+            "misclick? 🙏🏼🥀",
+            "love...?",
+            "zhuro misclick lang, ganon? 😊"
+        ];
+
+        function noClicked() {
+            noCount++;
+            
+            // 1. Change the image and text
+            const memeImg = document.getElementById('meme-pic');
+            const memeTxt = document.getElementById('meme-text');
+            memeImg.src = noMemes[noCount % noMemes.length];
+            memeImg.style.display = 'block';
+            memeTxt.innerText = noTexts[noCount % noTexts.length];
+            memeTxt.style.display = 'block';
+
+            // 2. Make the YES button bigger
+            const yesBtn = document.getElementById('yesBtn');
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 20) + "px";
+            yesBtn.style.padding = (currentSize + 10) + "px " + (currentSize * 2) + "px";
+
+            // 3. Make the NO button smaller
+            const noBtn = document.getElementById('noBtn');
+            let noSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
+            if(noSize > 5) {
+                noBtn.style.fontSize = (noSize - 2) + "px";
+                noBtn.style.padding = "5px 10px";
+            }
+        }
+
+        function nextQuestion() {
+            step++;
+            noCount = 0; // Reset for next stage
+            
+            // Reset button sizes
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.fontSize = "18px";
+            yesBtn.style.padding = "15px 30px";
+            
+            document.getElementById('meme-pic').style.display = 'none';
+            document.getElementById('meme-text').style.display = 'none';
+
+            if(step === 2) {
+                document.getElementById('question').innerText = "Do you love me? 🥀";
+            } else if(step === 3) {
+                document.getElementById('question').innerText = "DO YOU LOVE ME? 🙏🏼";
+            } else {
+                document.getElementById('quiz-box').innerHTML = "<h1>YAY! I love you so so so so so much very very very very much!</h1><p>heh</p>";
+            }
+        }
+    </script>
+</body>
+</html>
